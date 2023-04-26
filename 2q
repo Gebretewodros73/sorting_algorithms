@@ -1,0 +1,29 @@
+void insertion_sort_list(listint_t **list)
+{
+    if (list == NULL || *list == NULL || (*list)->next == NULL)
+        return;
+
+    listint_t *curr;
+    listint_t *tmp;
+    curr = (*list)->next;
+    while (curr != NULL)
+    {
+        tmp = curr->prev;
+        while (tmp != NULL && tmp->n > curr->n)
+        {
+            /* Swap the nodes */
+            if (tmp->prev != NULL)
+                tmp->prev->next = curr;
+            else
+                *list = curr;
+            curr->prev = tmp->prev;
+            tmp->prev = curr;
+            tmp->next = curr->next;
+            curr->next = tmp;
+            tmp = curr->prev;
+            print_list(*list);
+        }
+        curr = curr->next;
+    }
+}
+
